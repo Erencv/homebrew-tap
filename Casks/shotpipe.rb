@@ -9,6 +9,13 @@ cask "shotpipe" do
 
   app "Shotpipe.app"
 
+  # macOS 26 quarantines every network download, including Homebrew's, and
+  # hard-blocks ad-hoc signed apps at first launch. Clear the flag once.
+  postflight do
+    system_command "/usr/bin/xattr",
+                   args: ["-dr", "com.apple.quarantine", "#{appdir}/Shotpipe.app"]
+  end
+
   caveats <<~EOS
     Launch it from ~/Applications or Spotlight, then enable "Start at login"
     from its menu bar icon. Servers need the CLI too:

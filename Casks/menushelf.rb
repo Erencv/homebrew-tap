@@ -9,6 +9,13 @@ cask "menushelf" do
 
   app "MenuShelf.app"
 
+  # macOS 26 quarantines every network download, including Homebrew's, and
+  # hard-blocks ad-hoc signed apps at first launch. Clear the flag once.
+  postflight do
+    system_command "/usr/bin/xattr",
+                   args: ["-dr", "com.apple.quarantine", "#{appdir}/MenuShelf.app"]
+  end
+
   caveats <<~EOS
     MenuShelf prompts for Accessibility permission on first launch; grant it
     under System Settings → Privacy & Security → Accessibility. Click the │
