@@ -7,6 +7,10 @@ cask "menushelf" do
   desc "Choose which Mac menu bar icons stay visible and collapse the rest"
   homepage "https://github.com/Erencv/menushelf"
 
+  # The binary is ad-hoc signed; quarantining it triggers a hard Gatekeeper
+  # block with no right-click bypass on recent macOS versions.
+  quarantine false
+
   app "MenuShelf.app"
 
   caveats <<~EOS

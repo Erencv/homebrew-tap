@@ -7,6 +7,10 @@ cask "shotpipe" do
   desc "Seamless screenshots from your Mac to your dev servers"
   homepage "https://github.com/Erencv/shotpipe"
 
+  # The binary is ad-hoc signed; quarantining it triggers a hard Gatekeeper
+  # block with no right-click bypass on recent macOS versions.
+  quarantine false
+
   app "Shotpipe.app"
 
   caveats <<~EOS
